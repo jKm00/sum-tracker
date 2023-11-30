@@ -1,0 +1,62 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+		Arial, sans-serif;
+	margin: auto;
+	max-width: 38rem;
+	padding: 2rem;
+}
+
+.header {
+	margin-bottom: 2rem;
+}
+
+.form {
+	margin-bottom: 2rem;
+}
+
+.error-msg {
+	color: red;
+	font-size: 0.8rem;
+}
+
+button:disabled {
+	color: #000;
+}
+
+/* Opponent */
+
+.opponent {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.opponent.variant {
+	background-color: #f2f2f2;
+}
+
+.lane-icon {
+	width: 4rem;
+}
+
+.opponent-body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.opponent-name {
+	font-weight: bold;
+}
+
+.opponent-sums {
+	display: flex;
+	gap: 0.5rem;
+}

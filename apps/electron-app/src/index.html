@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Hello World!</title>
+		<link rel="stylesheet" href="index.css" />
+	</head>
+	<body>
+		<div class="header">
+			<h1>👁 Sum Tracker</h1>
+			<p>Track the summoners of your opponents with precision!</p>
+		</div>
+
+		<form id="form" class="form">
+			<input type="text" name="name" placeholder="Summoner name" />
+			<button type="submit">Start game</button>
+			<!-- Error message -->
+			<p id="error-message" class="error-msg"></p>
+		</form>
+
+		<!-- Opponents -->
+		<section id="opponents"></section>
+
+		<script src="controller.js" defer></script>
+	</body>
+</html>
