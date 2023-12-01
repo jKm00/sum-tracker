@@ -7,8 +7,11 @@ class MainView {
 		self = this;
 	}
 
+	/**
+	 * Initializes the main view
+	 */
 	init() {
-		const app = document.querySelector('#app');
+		const app = document.querySelector('#form');
 
 		const form = document.createElement('form');
 		form.classList.add('form');
@@ -40,11 +43,19 @@ class MainView {
 		app.appendChild(form);
 	}
 
+	/**
+	 * Renders an error message
+	 * @param {*} message to be rendered
+	 */
 	renderError(message) {
 		const errorMessage = document.querySelector('#error-message');
 		errorMessage.innerHTML = message;
 	}
 
+	/**
+	 * Renders all enemies
+	 * @param {*} enemies to be rendered
+	 */
 	renderEnemies(enemies) {
 		const opponents = document.querySelector('#opponents');
 
@@ -58,6 +69,12 @@ class MainView {
 		opponents.appendChild(ul);
 	}
 
+	/**
+	 * Creates an enemy gui tiem
+	 * @param {*} enemy to be rendered
+	 * @param {*} index of the enemy in the list
+	 * @returns an li element with the enemy
+	 */
 	createEnemyItem(enemy, index) {
 		const li = document.createElement('li');
 		li.classList.add('opponent');
@@ -93,7 +110,9 @@ class MainView {
 
 		// Summoner 1
 		const button1 = document.createElement('button');
+		button1.id = `btn-${index}1`;
 		button1.type = 'button';
+		button1.dataset.cd = enemy.getSummoner1Cd();
 
 		const spell1 = document.createElement('img');
 		spell1.classList.add('spell-icon');
@@ -101,6 +120,7 @@ class MainView {
 		spell1.alt = `${enemy.getSummoner1Name()} icon`;
 
 		const span1 = document.createElement('span');
+		span1.id = `cd-${index}1`;
 		span1.classList.add('countdown');
 		span1.innerHTML = 'UP';
 
@@ -116,7 +136,9 @@ class MainView {
 
 		// Summoner 2
 		const button2 = document.createElement('button');
+		button2.id = `btn-${index}2`;
 		button2.type = 'button';
+		button2.dataset.cd = enemy.getSummoner2Cd();
 
 		const spell2 = document.createElement('img');
 		spell2.classList.add('spell-icon');
@@ -124,6 +146,7 @@ class MainView {
 		spell2.alt = `${enemy.getSummoner2Name()} icon`;
 
 		const span2 = document.createElement('span');
+		span2.id = `cd-${index}2`;
 		span2.classList.add('countdown');
 		span2.innerHTML = 'UP';
 
@@ -147,6 +170,9 @@ class MainView {
 		return li;
 	}
 
+	/**
+	 * Clears all enemies from the view
+	 */
 	clearEnemies() {
 		const opponents = document.querySelector('#opponents');
 		opponents.innerHTML = '';

@@ -1,4 +1,5 @@
 const ApiService = require('../services/ApiService');
+const CooldownService = require('../services/CooldownService');
 
 let self;
 
@@ -6,6 +7,7 @@ class MainController {
 	constructor() {
 		this.apiSerice = new ApiService();
 		this.mainView = null;
+		this.cooldownService = new CooldownService();
 		this.interval = [];
 		self = this;
 	}
@@ -14,6 +16,10 @@ class MainController {
 		self.mainView = view;
 	}
 
+	/**
+	 * Handles the form submit event
+	 * @param {*} event of the form submit
+	 */
 	async submitForm(event) {
 		event.preventDefault();
 		self.clear();
@@ -29,7 +35,7 @@ class MainController {
 			self.mainView.renderEnemies(enemies);
 		} catch (error) {
 			console.error(error);
-			self.mainView.renderError('TODO: Add custome error messages');
+			self.mainView.renderError('Something went wrong. Please try again!');
 		}
 	}
 
@@ -39,25 +45,17 @@ class MainController {
 	clear() {
 		self.mainView.renderError('');
 		self.mainView.clearEnemies();
-		self.interval.forEach((interval) => clearInterval(interval));
+		self.cooldownService.clearIntervals();
 	}
 
+	/**
+	 * Handles the event when a summoner spell is clicked
+	 * @param {*} button of the summoner spell
+	 * @param {*} span of the summoner spell
+	 * @param {*} cd of the summoner spell
+	 */
 	handleSummonerClick(button, span, cd) {
-		button.disabled = true;
-
-		span.innerHTML = Math.round(cd);
-
-		let interval = setInterval(() => {
-			if (span.innerHTML === '0') {
-				span.innerHTML = 'UP';
-				button.disabled = false;
-				clearInterval(interval);
-			} else {
-				span.innerHTML = Math.round(parseFloat(span.innerHTML) - 1);
-			}
-		}, 1000);
-
-		self.interval.push(interval);
+		self.cooldownService.setSummonerOnCooldown(button, span, cd);
 	}
 }
 

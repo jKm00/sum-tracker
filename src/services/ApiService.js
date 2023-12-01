@@ -41,6 +41,7 @@ class ApiService {
 	 * @param {*} puuid of the summoner
 	 * @returns {Object} - Match details
 	 */
+	// TODO: Use spectetor endpoint to get current match
 	async fetchMatchEnemies(puuid) {
 		// Fetch latest match
 		const matchRes = await fetch(

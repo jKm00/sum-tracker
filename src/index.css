@@ -9,9 +9,27 @@
 body {
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
 		Arial, sans-serif;
-	margin: auto;
-	max-width: 38rem;
-	padding: 2rem;
+	padding: 1rem;
+}
+
+button {
+	display: flex;
+	align-items: center;
+	border: none;
+	background: transparent;
+}
+
+button:disabled {
+	color: #000;
+}
+
+.app {
+	display: flex;
+	gap: 1rem;
+}
+
+.main {
+	flex-grow: 1;
 }
 
 .header {
@@ -41,17 +59,6 @@ body {
 .error-msg {
 	color: red;
 	font-size: 0.8rem;
-}
-
-button {
-	display: flex;
-	align-items: center;
-	border: none;
-	background: transparent;
-}
-
-button:disabled {
-	color: #000;
 }
 
 /* Opponent */
@@ -90,4 +97,10 @@ button:disabled {
 
 .spell-icon {
 	width: 2rem;
+}
+
+/* Shortcuts */
+
+.shortcuts {
+	min-width: 20rem;
 }
