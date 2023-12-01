@@ -1,5 +1,6 @@
 const ApiService = require('../services/ApiService');
 const CooldownService = require('../services/CooldownService');
+const StatusError = require('../exceptions/StatusError');
 
 let self;
 
@@ -35,6 +36,10 @@ class MainController {
 			self.mainView.renderEnemies(enemies);
 		} catch (error) {
 			console.error(error);
+			if (error instanceof StatusError && error.status === 404) {
+				self.mainView.renderError('Summoner is not in a match');
+				return;
+			}
 			self.mainView.renderError('Something went wrong. Please try again!');
 		}
 	}

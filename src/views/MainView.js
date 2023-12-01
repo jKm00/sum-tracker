@@ -84,24 +84,46 @@ class MainView {
 		}
 
 		// Lane icon
+		let imgSrc;
+		switch (index) {
+			case 0:
+				imgSrc = './icons/lanes/TOP.png';
+				break;
+			case 1:
+				imgSrc = './icons/lanes/JUNGLE.png';
+				break;
+			case 2:
+				imgSrc = './icons/lanes/MIDDLE.png';
+				break;
+			case 3:
+				imgSrc = './icons/lanes/BOTTOM.png';
+				break;
+			case 4:
+				imgSrc = './icons/lanes/UTILITY.png';
+				break;
+			default:
+				imgSrc = './icons/lanes/UNKNOWN.png';
+				break;
+		}
+
 		const img = document.createElement('img');
 		img.classList.add('lane-icon');
-		img.src = `./icons/lanes/${enemy.lane}.png`;
+		img.src = imgSrc;
 		img.alt = `${enemy.lane} icon`;
 
 		// Info wrapper
 		const info = document.createElement('div');
 		info.classList.add('opponent-info');
 
-		const champion = document.createElement('p');
-		champion.classList.add('opponent-champion');
-		champion.innerHTML = enemy.champion;
+		// const champion = document.createElement('p');
+		// champion.classList.add('opponent-champion');
+		// champion.innerHTML = enemy.champion;
 
 		const name = document.createElement('p');
 		name.classList.add('opponent-name');
 		name.innerHTML = enemy.name;
 
-		info.appendChild(champion);
+		// info.appendChild(champion);
 		info.appendChild(name);
 
 		// Summoners wrapper

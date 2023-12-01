@@ -1,4 +1,5 @@
 const Enemy = require('../models/Enemy');
+const StatusError = require('../exceptions/StatusError');
 
 let self;
 
@@ -15,11 +16,11 @@ class ApiService {
 	 * @returns {Array} - Array of Enemy objects
 	 */
 	async getEnemies(name) {
-		const summonerId = await self.fetchSummonerId(name);
-		const enemies = await self.fetchMatchEnemies(summonerId);
-		const sortedEnemies = self.sortTeamMembersFromTopToBottom(enemies);
+		const { puuid, id } = await self.fetchSummonerId(name);
+		const enemies = await self.fetchMatchEnemies(id, puuid);
+		// const sortedEnemies = self.sortTeamMembersFromTopToBottom(enemies);
 
-		return sortedEnemies;
+		return enemies;
 	}
 
 	/**
@@ -31,30 +32,28 @@ class ApiService {
 		const res = await fetch(
 			`https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}?api_key=${self.API_KEY}`
 		);
-		const { puuid } = await res.json();
+		const { puuid, id } = await res.json();
 
-		return puuid;
+		return { puuid, id };
 	}
 
 	/**
 	 * Returns the enemies of the latest match of the given summoner
-	 * @param {*} puuid of the summoner
+	 * @param {*} id of the summoner
 	 * @returns {Object} - Match details
 	 */
-	// TODO: Use spectetor endpoint to get current match
-	async fetchMatchEnemies(puuid) {
+	async fetchMatchEnemies(id, puuid) {
 		// Fetch latest match
 		const matchRes = await fetch(
-			`https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=1&api_key=${self.API_KEY}`
+			`https://euw1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/${id}?api_key=${self.API_KEY}`
 		);
 		const matchData = await matchRes.json();
 
-		// Fetch match details
-		const detailRes = await fetch(
-			`https://europe.api.riotgames.com/lol/match/v5/matches/${matchData[0]}?api_key=${self.API_KEY}`
-		);
-		const detailData = await detailRes.json();
-		const participants = detailData.info.participants;
+		if (matchData.status && matchData.status.status_code === 404) {
+			throw new StatusError(404, 'Summoner is not in a match');
+		}
+
+		const participants = matchData.participants;
 
 		const enemies = self.filterEnemies(puuid, participants);
 
@@ -62,17 +61,10 @@ class ApiService {
 			return new Enemy(
 				enemy.puuid,
 				enemy.summonerName,
-				enemy.championName,
-				enemy.teamPosition,
-				enemy.teamId,
-				enemy.summoner1Id,
-				enemy.summoner2Id,
-				enemy.perks.styles[0].selections.find(
-					(selection) => (selection.perk = self.CONSMIC_INSIGHT_ID)
-				) !== undefined ||
-					enemy.perks.styles[1].selections.find(
-						(selection) => (selection.perk = self.CONSMIC_INSIGHT_ID)
-					) !== undefined
+				enemy.spell1Id,
+				enemy.spell2Id,
+				enemy.perks.perkIds.find((perk) => perk === self.CONSMIC_INSIGHT_ID) !==
+					undefined
 			);
 		});
 	}

@@ -1,19 +1,7 @@
 class Enemy {
-	constructor(
-		puuid,
-		name,
-		champion,
-		lane,
-		teamId,
-		summoner1Id,
-		summoner2Id,
-		hasSummonerCd
-	) {
+	constructor(puuid, name, summoner1Id, summoner2Id, hasSummonerCd) {
 		this.puuid = puuid;
 		this.name = name;
-		this.champion = champion;
-		this.lane = lane;
-		this.teamId = teamId;
 		this.summoner1Id = summoner1Id;
 		this.summoner2Id = summoner2Id;
 		this.hasSummonerCd = hasSummonerCd;
