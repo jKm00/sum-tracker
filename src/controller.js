@@ -71,13 +71,13 @@ async function submitForm(event) {
               <button data-summoner-button data-summoner="${
 								enemy.summoner1Id
 							}" data-has-cd="${enemy.hasSummonerCd}" id="btn-${index}1">${
-								SUMMONERS[enemy.summoner1Id].name
-							}: <span id="span-${index}1">UP</span></button>
+						SUMMONERS[enemy.summoner1Id].name
+					}: <span id="span-${index}1">UP</span></button>
               <button data-summoner-button data-summoner="${
 								enemy.summoner2Id
 							}" data-has-cd="${enemy.hasSummonerCd}" id="btn-${index}2">${
-								SUMMONERS[enemy.summoner2Id].name
-							}: <span id="span-${index}2">UP</span></button>
+						SUMMONERS[enemy.summoner2Id].name
+					}: <span id="span-${index}2">UP</span></button>
             </div>
           <div>
         </li>

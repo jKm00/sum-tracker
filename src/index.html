@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8" />
@@ -11,16 +11,12 @@
 			<p>Track the summoners of your opponents with precision!</p>
 		</div>
 
-		<form id="form" class="form">
-			<input type="text" name="name" placeholder="Summoner name" />
-			<button type="submit">Start game</button>
-			<!-- Error message -->
-			<p id="error-message" class="error-msg"></p>
-		</form>
+		<div id="app"></div>
 
 		<!-- Opponents -->
 		<section id="opponents"></section>
 
-		<script src="controller.js" defer></script>
+		<!-- <script src="controller.js" defer></script> -->
+		<script src="render.js" defer></script>
 	</body>
 </html>
