@@ -6,6 +6,7 @@ class MainController {
 	constructor() {
 		this.apiSerice = new ApiService();
 		this.mainView = null;
+		this.interval = [];
 		self = this;
 	}
 
@@ -15,6 +16,7 @@ class MainController {
 
 	async submitForm(event) {
 		event.preventDefault();
+		self.clear();
 
 		const name = event.target.name.value;
 		if (!name || name.length === 0) {
@@ -31,6 +33,15 @@ class MainController {
 		}
 	}
 
+	/**
+	 * Clears all intervals and the enemies from the view
+	 */
+	clear() {
+		self.mainView.renderError('');
+		self.mainView.clearEnemies();
+		self.interval.forEach((interval) => clearInterval(interval));
+	}
+
 	handleSummonerClick(button, span, cd) {
 		button.disabled = true;
 
@@ -45,6 +56,8 @@ class MainController {
 				span.innerHTML = Math.round(parseFloat(span.innerHTML) - 1);
 			}
 		}, 1000);
+
+		self.interval.push(interval);
 	}
 }
 

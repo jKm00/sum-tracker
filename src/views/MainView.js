@@ -1,5 +1,3 @@
-const MainController = require('../controllers/MainController');
-
 let self;
 
 class MainView {
@@ -15,6 +13,9 @@ class MainView {
 		const form = document.createElement('form');
 		form.classList.add('form');
 
+		const wrapper = document.createElement('div');
+		wrapper.classList.add('form-wrapper');
+
 		const input = document.createElement('input');
 		input.type = 'text';
 		input.name = 'name';
@@ -28,8 +29,10 @@ class MainView {
 		errorMessage.id = 'error-message';
 		errorMessage.classList.add('error-msg');
 
-		form.appendChild(input);
-		form.appendChild(button);
+		wrapper.appendChild(input);
+		wrapper.appendChild(button);
+
+		form.appendChild(wrapper);
 		form.appendChild(errorMessage);
 
 		form.onsubmit = self.controller.submitForm;
@@ -63,26 +66,42 @@ class MainView {
 			li.classList.add('variant');
 		}
 
+		// Lane icon
 		const img = document.createElement('img');
 		img.classList.add('lane-icon');
-		img.src = `./icons/${enemy.lane}.png`;
+		img.src = `./icons/lanes/${enemy.lane}.png`;
 		img.alt = `${enemy.lane} icon`;
 
-		const div = document.createElement('div');
-		div.classList.add('opponent-body');
+		// Info wrapper
+		const info = document.createElement('div');
+		info.classList.add('opponent-info');
 
-		const p = document.createElement('p');
-		p.classList.add('opponent-name');
-		p.innerHTML = enemy.name;
+		const champion = document.createElement('p');
+		champion.classList.add('opponent-champion');
+		champion.innerHTML = enemy.champion;
 
-		const div2 = document.createElement('div');
-		div2.classList.add('opponent-sums');
+		const name = document.createElement('p');
+		name.classList.add('opponent-name');
+		name.innerHTML = enemy.name;
 
+		info.appendChild(champion);
+		info.appendChild(name);
+
+		// Summoners wrapper
+		const summoners = document.createElement('div');
+		summoners.classList.add('opponent-sums');
+
+		// Summoner 1
 		const button1 = document.createElement('button');
 		button1.type = 'button';
-		button1.innerHTML = `${enemy.getSummoner1Name()}: `;
+
+		const spell1 = document.createElement('img');
+		spell1.classList.add('spell-icon');
+		spell1.src = `./icons/spells/${enemy.getSummoner1Name()}.webp`;
+		spell1.alt = `${enemy.getSummoner1Name()} icon`;
 
 		const span1 = document.createElement('span');
+		span1.classList.add('countdown');
 		span1.innerHTML = 'UP';
 
 		button1.onclick = () =>
@@ -92,13 +111,20 @@ class MainView {
 				enemy.getSummoner1Cd()
 			);
 
+		button1.appendChild(spell1);
 		button1.appendChild(span1);
 
+		// Summoner 2
 		const button2 = document.createElement('button');
 		button2.type = 'button';
-		button2.innerHTML = `${enemy.getSummoner2Name()}: `;
+
+		const spell2 = document.createElement('img');
+		spell2.classList.add('spell-icon');
+		spell2.src = `./icons/spells/${enemy.getSummoner2Name()}.webp`;
+		spell2.alt = `${enemy.getSummoner2Name()} icon`;
 
 		const span2 = document.createElement('span');
+		span2.classList.add('countdown');
 		span2.innerHTML = 'UP';
 
 		button2.onclick = () =>
@@ -108,18 +134,22 @@ class MainView {
 				enemy.getSummoner2Cd()
 			);
 
+		button2.appendChild(spell2);
 		button2.appendChild(span2);
 
-		div2.appendChild(button1);
-		div2.appendChild(button2);
-
-		div.appendChild(p);
-		div.appendChild(div2);
+		summoners.appendChild(button1);
+		summoners.appendChild(button2);
 
 		li.appendChild(img);
-		li.appendChild(div);
+		li.appendChild(info);
+		li.appendChild(summoners);
 
 		return li;
+	}
+
+	clearEnemies() {
+		const opponents = document.querySelector('#opponents');
+		opponents.innerHTML = '';
 	}
 }
 

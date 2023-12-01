@@ -22,9 +22,32 @@ body {
 	margin-bottom: 2rem;
 }
 
+.form-wrapper {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.form input {
+	padding: 0.5rem 1rem;
+}
+
+.form button {
+	background-color: #0066ff;
+	color: #fff;
+	padding: 0.5rem 1rem;
+	border-radius: 3px;
+}
+
 .error-msg {
 	color: red;
 	font-size: 0.8rem;
+}
+
+button {
+	display: flex;
+	align-items: center;
+	border: none;
+	background: transparent;
 }
 
 button:disabled {
@@ -35,28 +58,36 @@ button:disabled {
 
 .opponent {
 	display: flex;
+	align-items: center;
 	gap: 0.5rem;
+	padding: 0.5rem;
 }
 
 .opponent.variant {
-	background-color: #f2f2f2;
+	background-color: #e6f0ff;
 }
 
 .lane-icon {
-	width: 4rem;
+	width: 3rem;
 }
 
-.opponent-body {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+.opponent-info {
+	flex-grow: 1;
 }
 
-.opponent-name {
+.opponent-champion {
 	font-weight: bold;
 }
 
 .opponent-sums {
 	display: flex;
-	gap: 0.5rem;
+	gap: 1rem;
+}
+
+.countdown {
+	min-width: 3rem;
+}
+
+.spell-icon {
+	width: 2rem;
 }
