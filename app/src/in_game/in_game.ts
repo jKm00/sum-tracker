@@ -53,8 +53,25 @@ class InGame extends AppWindow {
 	}
 
 	private onInfoUpdates(info) {
+		let event: string;
+
 		if (info.summoner_info) {
-			console.log(info);
+			event = 'summoner_info';
+		} else if (info.match_info) {
+			event = 'match_info';
+		} else if (info.teams) {
+			event = 'teams';
+		} else if (info.matchState) {
+			event = 'matchState';
+		}
+
+		if (
+			info.summoner_info ||
+			info.match_info ||
+			info.teams ||
+			info.matchState
+		) {
+			console.log(event, info);
 			this.logLine(this._infoLog, info, false);
 		}
 	}
